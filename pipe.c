@@ -21,6 +21,7 @@ int main()
         
     else if (pid1 == 0)
     {
+        // CÓDIGO DO P1 //
         close(fd[0][1]);
         close(fd[1][0]);
         close(fd[2][0]);
@@ -52,7 +53,7 @@ int main()
         write(fd[1][1], array, array_len * sizeof(int));
         close(fd[1][1]);
 
-
+        // FIM DO CÓDIGO DE P1 //
     }
 
     else
@@ -62,6 +63,7 @@ int main()
             return 3;
         if (pid2 == 0)
         {
+            // CÓDIGO DO P2 //
             close(fd[0][0]);
             close(fd[0][1]);
             close(fd[1][1]);
@@ -80,9 +82,14 @@ int main()
             }
 
             write(fd[2][1], &sum, sizeof(int));
+            close(fd[2][1]);
+
+            // FIM DO CÓDIGO DO P2 //
         }
+
         else
         {
+            // CÓDIGO DO PAI //
             close(fd[0][0]);
             close(fd[1][0]);
             close(fd[1][1]);
@@ -104,7 +111,9 @@ int main()
             read(fd[2][0], &sum, sizeof(int));
             printf("A soma é: %d\n", sum);
             
-            wait(NULL);
+            int status = 0;
+            pid_t wpid;
+            while ((wpid = wait(&status)) > 0);
             close(fd[0][1]);
             close(fd[2][0]);
         }
