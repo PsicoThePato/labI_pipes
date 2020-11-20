@@ -4,6 +4,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <fcnt1.h>
+
 int main()
 {
     int fd[3][2];
@@ -116,6 +118,20 @@ int main()
             while ((wpid = wait(&status)) > 0);
             close(fd[0][1]);
             close(fd[2][0]);
+
+            char ping_str[] = "ping -c 5 ufes.br";
+
+            pid_t pid_ping = fork();
+            if (pid_ping < 0)
+                return 4;
+            else if (pid_ping == 0)
+            {
+                int fp = open("PipePing.txt", O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR));   
+                dup2(fp, 1);
+                execl("/bin/ping", "ping", "-c 5", "ufes.br");
+                fclose(fp);
+
+            }
         }
     } 
 }
