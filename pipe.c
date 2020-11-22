@@ -5,10 +5,13 @@
 #include <sys/wait.h>
 #include <string.h>
 #include <fcntl.h>
+#include<time.h>
+
 
 int main()
 {
     int fd[3][2];
+    srand(time(0)); // fixed random seed for debug purposes
     
     for(int i = 0; i < 3; i++)
     {
@@ -99,7 +102,6 @@ int main()
             
             int x;
             scanf("%d", &x);
-            srand(5); // fixed random seed for debug purposes
             int x_random = (random() % x) + 1;
             write(fd[0][1], &x, sizeof(int));
 
