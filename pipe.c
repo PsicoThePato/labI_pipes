@@ -101,6 +101,7 @@ int main()
             close(fd[2][1]);
             
             int x;
+            printf("DIgite um valor X inteiro entre 1-5: ");
             scanf("%d", &x);
             int x_random = (random() % x) + 1;
             write(fd[0][1], &x, sizeof(int));

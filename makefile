@@ -1,3 +1,5 @@
+# INTEGRANTES: JAIRO MARCOS, JOANA MARTINS E JULIANE FERREIRA
+
 run:
 	gcc *.c -o pipe
 	./pipe
